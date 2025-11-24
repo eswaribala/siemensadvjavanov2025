@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class BuiltInFunctionalInterface {
@@ -51,6 +52,10 @@ public class BuiltInFunctionalInterface {
         System.out.println("Engine No of the Vehicle="+vehicleInfoSupplier.get());
 
 
+        //Predicate to check vehicle registration is before current date
+        Predicate<Vehicle> predicate=(v)->
+                v.getDateOfRegistration().isBefore(LocalDate.now());
+        System.out.println("Is Vehicle Registration Date before Current Date?="+predicate.test(vehicles.get(0)));
 
     }
 }
