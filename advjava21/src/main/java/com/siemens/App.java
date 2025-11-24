@@ -1,6 +1,7 @@
 package com.siemens;
 
 import com.github.javafaker.Faker;
+import com.siemens.interfaces.OTPGenerator;
 
 /**
  * Hello world!
@@ -28,7 +29,17 @@ public class App
         };
         Thread thread = new Thread(runnable);
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
+        OTPGenerator generator = (min,max)->
+             faker.number().numberBetween(min, max);
+
+
+        System.out.println("Generated OTP="+generator.getOTP(1000,9999));
 
     }
 }
