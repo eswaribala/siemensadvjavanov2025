@@ -3,6 +3,7 @@ package com.siemens;
 import com.github.javafaker.Faker;
 import com.siemens.dao.VehicleDao;
 import com.siemens.dao.VehicleImpl;
+import com.siemens.models.FuelType;
 import com.siemens.models.Vehicle;
 
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class BuiltInFunctionalInterface {
         System.out.println("Is Vehicle1 Registered before Vehicle2?="+ biFunction.apply(vehicles.get(faker.number().numberBetween(0,5)),vehicles.get(faker.number().numberBetween(6,9))));
 
         //Supplier
+        //constructor reference
         Supplier<Vehicle> supplier=Vehicle::new;
         Vehicle vehicle=supplier.get();
         //set values
@@ -38,7 +40,13 @@ public class BuiltInFunctionalInterface {
         vehicle.setMaker(faker.company().name());
         vehicle.setColor(faker.color().name());
         vehicle.setDateOfRegistration(LocalDate.now().minusDays(faker.number().numberBetween(1,1000)));
+        vehicle.setEngineNo(faker.letterify("??????????"));
+        vehicle.setChassisNo(faker.letterify("??????????"));
+        //static method reference
+        Supplier<FuelType> fuelTypeSupplier=VehicleImpl::randomFuelType;
+        vehicle.setFuelType(fuelTypeSupplier.get());
         System.out.println("New Vehicle Details="+vehicle);
+        //Instance Method reference
 
 
 
