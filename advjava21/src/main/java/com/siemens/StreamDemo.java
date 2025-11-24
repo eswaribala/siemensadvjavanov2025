@@ -92,7 +92,7 @@ public class StreamDemo {
 
         //parse year of registration to integer list with exception handling
     List<Integer> parsedYears= vehicleDao.getVehicles().stream()
-                .map((v)->{
+                .map(v->{
                     try{
                        return Integer.parseInt(v.getDateOfRegistration().getYear()+"");
                     }
@@ -101,7 +101,7 @@ public class StreamDemo {
                     }
                 })
             .filter(year->year>0)
-            .collect(Collectors.toList());
+            .toList();
 
         System.out.println("Parsed Years: "+parsedYears);
 
