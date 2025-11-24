@@ -35,6 +35,7 @@ public class App
             throw new RuntimeException(e);
         }
 
+        //lambda expression for OTP generation
         OTPGenerator generator = (min,max)->
              faker.number().numberBetween(min, max);
 
