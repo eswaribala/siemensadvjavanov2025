@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class BuiltInFunctionalInterface {
     public static void main(String[] args) {
@@ -28,6 +29,18 @@ public class BuiltInFunctionalInterface {
         BiFunction<Vehicle,Vehicle,Boolean> biFunction=(v1,v2)->
                 v1.getDateOfRegistration().isBefore(v2.getDateOfRegistration());
         System.out.println("Is Vehicle1 Registered before Vehicle2?="+ biFunction.apply(vehicles.get(faker.number().numberBetween(0,5)),vehicles.get(faker.number().numberBetween(6,9))));
+
+        //Supplier
+        Supplier<Vehicle> supplier=Vehicle::new;
+        Vehicle vehicle=supplier.get();
+        //set values
+        vehicle.setRegistrationNo("TN-01"+faker.number().numberBetween(1000,9999));
+        vehicle.setMaker(faker.company().name());
+        vehicle.setColor(faker.color().name());
+        vehicle.setDateOfRegistration(LocalDate.now().minusDays(faker.number().numberBetween(1,1000)));
+        System.out.println("New Vehicle Details="+vehicle);
+
+
 
     }
 }
