@@ -47,6 +47,8 @@ public class BuiltInFunctionalInterface {
         vehicle.setFuelType(fuelTypeSupplier.get());
         System.out.println("New Vehicle Details="+vehicle);
         //Instance Method reference
+        Supplier<String> vehicleInfoSupplier=vehicle::getEngineNo;
+        System.out.println("Engine No of the Vehicle="+vehicleInfoSupplier.get());
 
 
 
