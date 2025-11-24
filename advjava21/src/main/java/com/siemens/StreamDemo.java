@@ -8,6 +8,7 @@ import com.siemens.models.Vehicle;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -89,7 +90,20 @@ public class StreamDemo {
             System.out.println(e.getMessage());
       }
 
+        //parse year of registration to integer list with exception handling
+    List<Integer> parsedYears= vehicleDao.getVehicles().stream()
+                .map((v)->{
+                    try{
+                       return Integer.parseInt(v.getDateOfRegistration().getYear()+"");
+                    }
+                    catch (NumberFormatException e){
+                        return 0;
+                    }
+                })
+            .filter(year->year>0)
+            .collect(Collectors.toList());
 
+        System.out.println("Parsed Years: "+parsedYears);
 
 
     }
