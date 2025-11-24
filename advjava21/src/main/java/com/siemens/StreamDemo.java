@@ -106,5 +106,23 @@ public class StreamDemo {
         System.out.println("Parsed Years: "+parsedYears);
 
 
+        List<Integer> parsedYearsV1= vehicleDao.getVehicles().stream()
+                .map(v->{
+
+                        int value= Integer.parseInt(v.getDateOfRegistration().getYear()+"");
+                        if (value>0){
+                            return value;
+                        }else {
+                            throw new NumberFormatException("Invalid Year");
+                        }
+
+                })
+
+                .toList();
+
+        System.out.println("Parsed Years: "+parsedYearsV1);
+
+
+
     }
 }
