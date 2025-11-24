@@ -25,6 +25,7 @@ public class HttpClientSynchronousDemo {
                 .uri(java.net.URI.create("https://jsonplaceholder.typicode.com/users"))
                 .build();
         HttpResponse<String> httpResponse;
+
         //JSONArray jsonArray;
         HttpHeaders httpHeaders;
         ObjectMapper objectMapper=new ObjectMapper();
