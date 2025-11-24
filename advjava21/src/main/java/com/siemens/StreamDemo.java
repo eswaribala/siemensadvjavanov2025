@@ -3,6 +3,9 @@ package com.siemens;
 import com.siemens.dao.VehicleDao;
 import com.siemens.dao.VehicleImpl;
 import com.siemens.models.FuelType;
+import com.siemens.models.Vehicle;
+
+import java.util.Comparator;
 
 public class StreamDemo {
 
@@ -12,7 +15,7 @@ public class StreamDemo {
         //print all vehicles using streams and method reference
         vehicleDao.getVehicles().stream()
                 .filter(v->v.getFuelType()== FuelType.DIESEL)
-                .sorted((v1,v2)->v1.getDateOfRegistration().compareTo(v2.getDateOfRegistration()))
+                .sorted(Comparator.comparing(Vehicle::getDateOfRegistration))
                 .forEach(System.out::println);
     }
 }
