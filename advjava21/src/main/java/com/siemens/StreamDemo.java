@@ -9,6 +9,7 @@ import com.siemens.models.Vehicle;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class StreamDemo {
@@ -53,5 +54,30 @@ public class StreamDemo {
         vehicleMap.entrySet().stream()
                 .map(entry->entry.getKey()+" => "+entry.getValue())
                 .forEach(System.out::println);
+
+        //custom collector to build comma separated registration numbers
+        Collector<Vehicle, StringBuilder, String> registratioNoCollector =
+                Collector.of(
+                        () -> new StringBuilder(),
+                        (sb, v) -> {
+                            if (sb.length() > 0) {
+                                sb.append(", ");
+                            }
+                            sb.append(v.getRegistrationNo());
+                        },
+                        (sb1, sb2) -> {
+                            if (sb1.length() > 0 && sb2.length() > 0) {
+                                sb1.append(", ");
+                            }
+                            sb1.append(sb2);
+                            return sb1;
+                        },
+                        StringBuilder::toString
+                );
+        //applying custom collector
+        String registrationNumbers = vehicleDao.getVehicles().stream()
+                .collect(registratioNoCollector);
+        System.out.println("All Registration Numbers: " + registrationNumbers);
+
     }
 }

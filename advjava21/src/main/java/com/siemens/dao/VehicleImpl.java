@@ -15,7 +15,7 @@ public class VehicleImpl implements VehicleDao {
       Faker faker = new Faker();
       for (int i = 0; i < 100; i++) {
             Vehicle vehicle = Vehicle.builder()
-                            .registrationNo("TN-01"+faker.number().numberBetween(1000,9999))
+                            .registrationNo("TN-01"+faker.number().numberBetween(100,9999999))
                             .maker(faker.company().name())
                             .color(faker.color().name())
                             .chassisNo(faker.letterify("??????????"))
