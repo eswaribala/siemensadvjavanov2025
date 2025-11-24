@@ -39,5 +39,10 @@ public class StreamDemo {
         boolean anyMatch= vehicleDao.getVehicles().stream()
                 .anyMatch(v->v.getFuelType()==FuelType.ELECTRIC);
         System.out.println("Any vehicle is Electric: "+anyMatch);
+
+        //find first
+        vehicleDao.getVehicles().stream().filter(v->v.getColor().equals("white"))
+                .findFirst()
+                .ifPresent(v-> System.out.println("First Red Vehicle: "+v));
     }
 }
