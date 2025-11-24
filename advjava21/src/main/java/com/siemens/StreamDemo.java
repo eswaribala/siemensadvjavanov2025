@@ -6,6 +6,7 @@ import com.siemens.dtos.VehicleInfo;
 import com.siemens.models.FuelType;
 import com.siemens.models.Vehicle;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,5 +45,13 @@ public class StreamDemo {
         vehicleDao.getVehicles().stream().filter(v->v.getColor().equals("white"))
                 .findFirst()
                 .ifPresent(v-> System.out.println("First Red Vehicle: "+v));
+
+        //predefined collectors
+        Map<LocalDate,Vehicle> vehicleMap= vehicleDao.getVehicles().stream()
+                .collect(Collectors.toMap(Vehicle::getDateOfRegistration,v->v));
+        System.out.println("Vehicle Map: ");
+        vehicleMap.entrySet().stream()
+                .map(entry->entry.getKey()+" => "+entry.getValue())
+                .forEach(System.out::println);
     }
 }
