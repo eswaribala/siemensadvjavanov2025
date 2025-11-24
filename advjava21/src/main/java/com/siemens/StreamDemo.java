@@ -7,6 +7,8 @@ import com.siemens.models.FuelType;
 import com.siemens.models.Vehicle;
 
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamDemo {
 
@@ -18,6 +20,14 @@ public class StreamDemo {
                 .filter(v->v.getFuelType()== FuelType.DIESEL)
                 .sorted(Comparator.comparing(Vehicle::getDateOfRegistration))
                 .map(v->new VehicleInfo(v.getRegistrationNo(),v.getDateOfRegistration()))
+                .limit(3)
                 .forEach(System.out::println);
+
+        //count the number of vehicles based on fuel type
+        System.out.println("Group Vehicles by Fuel Type and Count:");
+      Map<FuelType,Long> fuelTypeMapCount= vehicleDao.getVehicles().stream()
+                .collect(Collectors.groupingBy(Vehicle::getFuelType, Collectors.counting()));
+        fuelTypeMapCount.entrySet().stream()
+                .map(entry->entry.getKey()+" => "+entry.getValue()).forEach(System.out::println);
     }
 }
