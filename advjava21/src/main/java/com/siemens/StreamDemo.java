@@ -2,6 +2,7 @@ package com.siemens;
 
 import com.siemens.dao.VehicleDao;
 import com.siemens.dao.VehicleImpl;
+import com.siemens.dtos.VehicleInfo;
 import com.siemens.models.FuelType;
 import com.siemens.models.Vehicle;
 
@@ -16,6 +17,7 @@ public class StreamDemo {
         vehicleDao.getVehicles().stream()
                 .filter(v->v.getFuelType()== FuelType.DIESEL)
                 .sorted(Comparator.comparing(Vehicle::getDateOfRegistration))
+                .map(v->new VehicleInfo(v.getRegistrationNo(),v.getDateOfRegistration()))
                 .forEach(System.out::println);
     }
 }
