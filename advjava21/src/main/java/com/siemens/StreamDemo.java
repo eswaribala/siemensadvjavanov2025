@@ -29,5 +29,15 @@ public class StreamDemo {
                 .collect(Collectors.groupingBy(Vehicle::getFuelType, Collectors.counting()));
         fuelTypeMapCount.entrySet().stream()
                 .map(entry->entry.getKey()+" => "+entry.getValue()).forEach(System.out::println);
+
+        //all match
+        boolean allMatch= vehicleDao.getVehicles().stream()
+                .allMatch(v->v.getDateOfRegistration().getYear()>=2010);
+        System.out.println("All vehicles registered after 2010: "+allMatch);
+
+        //any match
+        boolean anyMatch= vehicleDao.getVehicles().stream()
+                .anyMatch(v->v.getFuelType()==FuelType.ELECTRIC);
+        System.out.println("Any vehicle is Electric: "+anyMatch);
     }
 }
