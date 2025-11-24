@@ -79,5 +79,18 @@ public class StreamDemo {
                 .collect(registratioNoCollector);
         System.out.println("All Registration Numbers: " + registrationNumbers);
 
+        //exception
+
+      Vehicle vehicle=  vehicleDao.getVehicles().stream().filter(v->v.getFuelType()==FuelType.ELECTRIC).findFirst()
+                .orElseThrow(()->new RuntimeException("No Electric Vehicle Found"));
+      try{
+            System.out.println("Electric Vehicle: "+vehicle);
+      }catch (RuntimeException e){
+            System.out.println(e.getMessage());
+      }
+
+
+
+
     }
 }
