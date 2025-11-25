@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-    <bean id="user" class="com.siemens.models.User">
-        <!-- Dependency Injection -->
+    <context:component-scan base-package="com.siemens.*"/>
+    <context:annotation-config/>
+
+    <!--<bean id="user" class="com.siemens.models.User">
+        &lt;!&ndash; Dependency Injection &ndash;&gt;
         <property name="userName" value="Parameswari" />
         <property name="password" value="Test@123"/>
         <property name="email" value="eswaribala@gmail.com"/>
         <property name="mobileNo" value="9876543210"/>
 
-    </bean>
+    </bean>-->
 
 </beans>
