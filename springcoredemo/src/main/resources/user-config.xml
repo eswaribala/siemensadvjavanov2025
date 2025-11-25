@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.siemens.models.User">
+        <!-- Dependency Injection -->
+        <property name="userName" value="Parameswari" />
+        <property name="password" value="Test@123"/>
+        <property name="email" value="eswaribala@gmail.com"/>
+        <property name="mobileNo" value="9876543210"/>
+
+    </bean>
+
+</beans>
