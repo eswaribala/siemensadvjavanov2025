@@ -1,5 +1,5 @@
 package com.siemens.interfaces;
-@FunctionalInterface
+//@FunctionalInterface
 public interface OTPGenerator {
     int getOTP(int min, int max);
 }
