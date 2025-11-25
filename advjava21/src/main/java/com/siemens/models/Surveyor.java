@@ -1,6 +1,5 @@
 package com.siemens.models;
 
-import com.siemens.dtos.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,10 +9,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@EqualsAndHashCode(callSuper = false)
-public final class ClaimAuthorizer extends InsuranceUser {
-    private String authorizationLevel;
 
-
+public class Surveyor  {
+    private String region;
+    private int experienceYears;
 }

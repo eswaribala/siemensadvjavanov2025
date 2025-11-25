@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper = false)
-public class ClaimOfficer extends InsuranceUser{
+public non-sealed class ClaimOfficer extends InsuranceUser{
     private String department;
 
 }

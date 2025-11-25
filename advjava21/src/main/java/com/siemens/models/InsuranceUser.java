@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class InsuranceUser {
+public sealed class InsuranceUser permits ClaimOfficer, ClaimAuthorizer {
     protected String name;
     protected String email;
     protected String phoneNumber;
