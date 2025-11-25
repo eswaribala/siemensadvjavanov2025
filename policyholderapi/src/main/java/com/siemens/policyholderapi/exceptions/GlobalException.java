@@ -27,6 +27,7 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new GenericResponse(runtimeException.getMessage()));
     }
 
+    //dto @valid validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<GenericResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest httpServletRequest) {
         List<FieldValidationError> fieldValidationErrors= methodArgumentNotValidException
@@ -44,7 +45,7 @@ public class GlobalException {
     private FieldValidationError mapToFieldValidationError(FieldError fieldError) {
         return new FieldValidationError(fieldError.getField(), fieldError.getDefaultMessage(),fieldError.getRejectedValue());
     }
-
+    //@path variable,@request param,@request header validation errors
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<GenericResponse>
     handleConstraintViolationException(ConstraintViolationException constraintViolationException,HttpServletRequest httpServletRequest) {
