@@ -25,6 +25,7 @@ public class PolicyHolderController {
 
         PolicyHolder policyHolder = PolicyHolder
                 .builder()
+                
                 .dob(policyHolderRequest.getDob())
                 .email(policyHolderRequest.getEmail())
                 .fullName(FullName.builder()
