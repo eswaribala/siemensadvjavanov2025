@@ -2,9 +2,11 @@ package com.siemens.policyholderapi.exceptions;
 
 import com.siemens.policyholderapi.dtos.GenericResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,7 +28,7 @@ public class GlobalException {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<GenericResponse> handleMethodArgumentNoValidException(MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<GenericResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException, HttpServletRequest httpServletRequest) {
         List<FieldValidationError> fieldValidationErrors= methodArgumentNotValidException
                 .getBindingResult().getFieldErrors().stream().map(this::mapToFieldValidationError).toList();
 
@@ -41,5 +43,18 @@ public class GlobalException {
 
     private FieldValidationError mapToFieldValidationError(FieldError fieldError) {
         return new FieldValidationError(fieldError.getField(), fieldError.getDefaultMessage(),fieldError.getRejectedValue());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<GenericResponse>
+    handleConstraintViolationException(ConstraintViolationException constraintViolationException,HttpServletRequest httpServletRequest) {
+        List<FieldValidationError> fieldValidationErrors= constraintViolationException
+                .getConstraintName().lines().map(fieldName -> new FieldValidationError(fieldName, constraintViolationException.getMessage(),null)).toList();
+        ApiError apiError = new ApiError(LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Constraint Violation",
+                fieldValidationErrors,
+                httpServletRequest.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new GenericResponse(apiError));
     }
 }
