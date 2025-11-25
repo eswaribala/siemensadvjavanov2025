@@ -5,10 +5,12 @@ import com.siemens.policyholderapi.models.Gender;
 import com.siemens.policyholderapi.models.PolicyId;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -38,6 +40,6 @@ public class PolicyHolderRequest {
     private LocalDate toDate;
 
     @Enumerated(EnumType.STRING)
-    
+    @NotNull(message = "Gender must not be null")
     private Gender gender;
 }
