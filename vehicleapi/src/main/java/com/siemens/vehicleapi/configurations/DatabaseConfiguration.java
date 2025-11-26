@@ -14,14 +14,12 @@ import javax.sql.DataSource;
 @Configuration
 @EnableConfigurationProperties(VaultConfiguration.class)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class DatabaseConfiguration {
     @Value("${url}")
     private String postgresUrl;
     @Value("${driverClassName}")
     private String postgresDriverName;
-    private VaultConfiguration vaultConfiguration;
+    private final VaultConfiguration vaultConfiguration;
     private DataSourceBuilder dataSourceBuilder;
 
     public DatabaseConfiguration(VaultConfiguration vaultConfiguration) {
@@ -32,6 +30,8 @@ public class DatabaseConfiguration {
     public DataSource getDataSource() {
         dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.url(postgresUrl);
+       // System.out.println(vaultConfiguration.getPostgrespassword());
+        //System.out.println(vaultConfiguration.getPostgresusername());
         dataSourceBuilder.username(vaultConfiguration.getPostgresusername());
         dataSourceBuilder.password(vaultConfiguration.getPostgrespassword());
         dataSourceBuilder.driverClassName(postgresDriverName);
