@@ -40,7 +40,7 @@ public class VehicleRequest {
     @Pattern(regexp = "^[A-Za-z ]{1,25}$", message = "Color must contain only letters and spaces, max length 25")
 
     private String color;
-    @NotEmpty(message = "Fuel Type must not be empty")
-    @NotBlank(message = "Fuel Type must not be blank")
+    //@NotEmpty(message = "Fuel Type must not be empty")
+    //@NotBlank(message = "Fuel Type must not be blank")
     private FuelType fuelType;
 }
