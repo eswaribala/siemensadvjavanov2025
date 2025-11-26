@@ -35,6 +35,10 @@ select * from vehicles;
 
 exit
 
+#to scale the containers in docker
+docker-compose up --scale <nameoftheservice>=<count>
+
+
 #connect to remote repository
 docker login
 docker tag <imagename> <dockerhubid/reponame:tagname>
