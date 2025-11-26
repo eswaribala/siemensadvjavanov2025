@@ -25,6 +25,14 @@ docker exec -it <containerid>  psql -U postgres
 #\l
 #to create the database
 create database niitdevcustomerdb;
+#to access db
+\c vehicleproddb
+#to show the tables
+\dt
+#to show the records
+select * from vehicles;
+
+
 exit
 
 #connect to remote repository
