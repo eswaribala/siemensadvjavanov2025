@@ -37,8 +37,8 @@ resilience4j:
 
 
 
-serviceUrl: http://localhost:7074/swagger-ui.html
+serviceUrl: http://localhost:7076/vehicles/v1.0
 alternativeServiceUrl: https://jsonplaceholder.typicode.com/users
 
-serviceUrl1: http://localhost:7076/swagger-ui.html
-alternativeServiceUrl1: https://restcountries.com/v2/all
+#serviceUrl1: http://localhost:7076/swagger-ui.html
+#alternativeServiceUrl1: https://restcountries.com/v2/all
