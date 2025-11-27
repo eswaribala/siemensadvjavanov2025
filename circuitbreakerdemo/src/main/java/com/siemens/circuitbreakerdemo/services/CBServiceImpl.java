@@ -16,6 +16,8 @@ public class CBServiceImpl implements CBService {
 
     @Value("${serviceUrl}")
     private String apiUrl;
+    @Value("${serviceUrl1}")
+    private String apiUrl1;
     @Value("${alternativeServiceUrl}")
     private String alternativeUrl;
 
@@ -30,10 +32,17 @@ public class CBServiceImpl implements CBService {
         log.info("Attempting to fetch data from primary API: {}", apiUrl);
        return  restClient.get().uri(apiUrl).retrieve().toEntity(String.class);
     }
-
+    @CircuitBreaker(name = "gatewayCircuitBreaker", fallbackMethod = "fallback1")
+    @Retry(name = "gatewayRetry")
+    @RateLimiter(name="gatewayRateLimiter")
     public ResponseEntity<String> fallback(Exception ex) {
-        log.warn("Primary API call failed: {}. Redirecting to alternative API: {}", ex.getMessage(), alternativeUrl);
-        return restClient.get().uri(alternativeUrl).retrieve().toEntity(String.class);
+        log.warn("Primary API call failed: {}. Redirecting to Policy API: {}", ex.getMessage(), alternativeUrl);
+        return restClient.get().uri(apiUrl1).retrieve().toEntity(String.class);
 
+    }
+
+    public ResponseEntity<String> fallback1(Exception ex) {
+        log.error("Both primary and alternative API calls failed: {}", ex.getMessage());
+        return restClient.get().uri(alternativeUrl).retrieve().toEntity(String.class);
     }
 }
