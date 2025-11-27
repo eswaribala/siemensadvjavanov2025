@@ -24,6 +24,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/vehicleproddb
+      - EUREKA__CLIENT__SERVICEURL=http://host.docker.internal:8761/eureka/
 
     deploy:
       restart_policy:
@@ -32,8 +33,9 @@ services:
         max_attempts: 15
         window: 50s
     ports:
-        - 8060-8070:7076
+      - "7074-7076:7076"
         #- 7076:7076
+
     volumes:
       - /data/compose-app
     #networks:
