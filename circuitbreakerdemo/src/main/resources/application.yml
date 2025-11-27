@@ -31,7 +31,7 @@ resilience4j:
     instances:
        gatewayRateLimiter:
          limit-for-period: 5
-         limit-refresh-period: 60m
+         limit-refresh-period: 2m
          timeout-duration: 500ms
 
 
@@ -40,5 +40,5 @@ resilience4j:
 serviceUrl: http://localhost:7076/vehicles/v1.0
 alternativeServiceUrl: https://jsonplaceholder.typicode.com/users
 
-#serviceUrl1: http://localhost:7076/swagger-ui.html
-#alternativeServiceUrl1: https://restcountries.com/v2/all
+serviceUrl1: http://localhost:7072/policyholders/v1.0
+alternativeServiceUrl1: https://httpbin.org/get
