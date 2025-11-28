@@ -43,3 +43,19 @@ docker-compose up --scale <nameoftheservice>=<count>
 docker login
 docker tag <imagename> <dockerhubid/reponame:tagname>
 docker push <dockerhubid/reponame:tagname>
+
+#mongodb commands
+docker exec -it <containerid> bin/bash
+#to access mongo client
+#mongosh
+#to show database
+show dbs;
+#switch to db
+use <dbname>
+#show collections
+show collections;
+#to view documents
+db.<collectionname>.find()
+#to exit
+exit
+
