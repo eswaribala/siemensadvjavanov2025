@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  policy-api:
+    image: policyapi
+    build:
+      context: ./
+      dockerfile: dockerfile
+    environment:
+      - MONGO_DATASOURCE_URL=mongodb://host.docker.internal:27017/vehiclesdb
+      - EUREKA__CLIENT__SERVICEURL=http://host.docker.internal:8761/eureka/
+
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 15
+        window: 50s
+    ports:
+      #- "7074-7076:7076"
+       - 7078:7078
+
+    volumes:
+      - /data/compose-app
+    #networks:
+      #- boanetwork
+
+
+### put all the networks here
+#networks:
+  #boanetwork:
+networks:
+  default:
+    external:
+      name: siemensnetwork
+
+  
