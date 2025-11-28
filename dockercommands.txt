@@ -19,6 +19,10 @@ docker network create niitnetwork
 #create the containers
 docker-compose up -d
 
+#to push image to docker hub
+docker login
+docker tag policyholderapi eswaribala/siemensnov2025repo:policyholderapi
+docker push eswaribala/siemensnov2025repo:policyholderapi
 #create postgres db
 docker exec -it <containerid>  psql -U postgres
 #to list the databases
