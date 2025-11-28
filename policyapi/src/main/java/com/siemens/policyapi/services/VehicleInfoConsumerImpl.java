@@ -8,6 +8,7 @@ import com.siemens.policyapi.models.Vehicle;
 import com.siemens.policyapi.repositories.VehicleConsumerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaHandler;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class VehicleInfoConsumerImpl implements VehicleInfoConsumer {
     @Autowired
     private VehicleConsumerRepo vehicleConsumerRepo;
     @Override
+    @KafkaHandler(isDefault = true)
     public void consumeData(String json) {
 
         log.info("Consumed vehicle data: {}", json);
