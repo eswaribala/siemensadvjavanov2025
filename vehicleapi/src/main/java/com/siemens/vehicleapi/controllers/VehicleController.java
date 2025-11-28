@@ -1,5 +1,6 @@
 package com.siemens.vehicleapi.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.siemens.vehicleapi.dtos.GenericResponse;
 import com.siemens.vehicleapi.dtos.VehicleRequest;
 import com.siemens.vehicleapi.models.Vehicle;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/vehicles")
@@ -69,5 +71,25 @@ public class VehicleController {
         else
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new GenericResponse("Vehicle could not be deleted"));
     }
+
+    @GetMapping("/v1.0/publish/{registrationNo}")
+
+    public CompletableFuture<ResponseEntity<String>> publishUserData(@PathVariable("registrationNo") String registrationNo) throws JsonProcessingException {
+
+        Vehicle vehicle= vehicleService.getVehicleById(registrationNo);
+        if(vehicle!=null){
+            return vehicleService.publishVehicleInfo(vehicle)
+                    .thenApply(result->ResponseEntity.status(HttpStatus.OK)
+                            .body(result.getRecordMetadata().topic()+","+result.getRecordMetadata().partition()+","+result.getRecordMetadata().offset()))
+                    .exceptionally(ex-> {
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+                    });
+
+        }
+        return null;
+
+
+    }
+
 
 }
