@@ -117,7 +117,7 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
         <!--  Source: https://mvnrepository.com/artifact/com.github.javafaker/javafaker  -->
-       
+
     </dependencies>
 
     <build>
