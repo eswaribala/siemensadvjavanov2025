@@ -24,7 +24,7 @@ public class ProductController {
      private ProductMapper productMapper;
 
      @PostMapping("/v1.0")
-     @CrossOrigin("*")
+
      @PreAuthorize("hasAnyAuthority('SCOPE_developer')")
      ResponseEntity<GenericResponse<ProductResponse>> addProduct(@RequestBody ProductRequest productRequest) {
          //invoke the mapper
@@ -37,9 +37,10 @@ public class ProductController {
          return ResponseEntity.status(HttpStatus.CREATED).body(new GenericResponse<ProductResponse>(productResponse));
      }
 
-    @GetMapping("/v1.0")
-    @CrossOrigin("*")
     @PreAuthorize("hasAnyAuthority('SCOPE_developer')")
+    @GetMapping("/v1.0")
+
+
     ResponseEntity<GenericResponse<List<ProductResponse>>> getAllProducts() {
 
 
@@ -51,8 +52,8 @@ public class ProductController {
                 GenericResponse<List<ProductResponse>>(productResponses));
     }
 
-    @GetMapping("/v1.0")
-    @CrossOrigin("*")
+    @GetMapping("/v1.0/byId")
+
     @PreAuthorize("hasAnyAuthority('SCOPE_tester','SCOPE_developer')")
     ResponseEntity<GenericResponse<ProductResponse>> getProductById(@RequestParam long id) {
 
@@ -66,7 +67,7 @@ public class ProductController {
     }
 
     @GetMapping("/v1.0/byName")
-    @CrossOrigin("*")
+
     @PreAuthorize("hasAnyAuthority('SCOPE_tester','SCOPE_developer')")
     ResponseEntity<GenericResponse<List<ProductResponse>>> getProductByName(@RequestParam String name) {
 
@@ -80,7 +81,7 @@ public class ProductController {
     }
 
     @PatchMapping("/v1.0")
-    @CrossOrigin("*")
+
     @PreAuthorize("hasAnyAuthority('SCOPE_developer')")
     ResponseEntity<GenericResponse<ProductResponse>> updateProduct(@RequestParam long id, @RequestBody double price) {
 
@@ -93,7 +94,7 @@ public class ProductController {
                 GenericResponse<ProductResponse>(productResponse));
     }
     @DeleteMapping("/v1.0")
-    @CrossOrigin("*")
+
     @PreAuthorize("hasAnyAuthority('SCOPE_tester','SCOPE_developer')")
     ResponseEntity<GenericResponse<String>> deleteProduct(@RequestParam long id) {
 

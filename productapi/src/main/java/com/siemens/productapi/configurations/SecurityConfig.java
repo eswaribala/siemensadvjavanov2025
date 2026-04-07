@@ -17,22 +17,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(auth -> auth
-                // Swagger / docs open
-                .requestMatchers(
-                    "/v3/api-docs/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html"
-                ).permitAll()
-                .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                // Protect API endpoints
-                .requestMatchers("/api/**").authenticated()
-                // Everything else allowed
-                .anyRequest().permitAll()
-            )
-            // Configure as a JWT resource server
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/products/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
