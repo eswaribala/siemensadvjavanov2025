@@ -1,11 +1,17 @@
 package com.siemens.productapi.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 @Entity
 @Table(name = "products")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
