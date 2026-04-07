@@ -29,10 +29,10 @@ public class StreamDemo {
         //count the number of vehicles based on fuel type
         System.out.println("Group Vehicles by Fuel Type and Count:");
       Map<FuelType,Long> fuelTypeMapCount= vehicleDao.getVehicles().stream()
-                .collect(Collectors.groupingBy(Vehicle::getFuelType, Collectors.counting()));
+                .collect(Collectors.groupingBy(Vehicle::getFuelType,Collectors.counting()));
         fuelTypeMapCount.entrySet().stream()
-                .map(entry->entry.getKey()+" => "+entry.getValue()).forEach(System.out::println);
-
+                .map(entry->entry.getKey()+" => "+entry.getValue())
+                .forEach(System.out::println);
         //all match
         boolean allMatch= vehicleDao.getVehicles().stream()
                 .allMatch(v->v.getDateOfRegistration().getYear()>=2010);
@@ -49,8 +49,9 @@ public class StreamDemo {
                 .ifPresent(v-> System.out.println("First Red Vehicle: "+v));
 
         //predefined collectors
+        //avoid duplicate date
         Map<LocalDate,Vehicle> vehicleMap= vehicleDao.getVehicles().stream()
-                .collect(Collectors.toMap(Vehicle::getDateOfRegistration,v->v));
+                .collect(Collectors.toMap(Vehicle::getDateOfRegistration,v->v,(v1,v2)->v1));
         System.out.println("Vehicle Map: ");
         vehicleMap.entrySet().stream()
                 .map(entry->entry.getKey()+" => "+entry.getValue())
