@@ -5,3 +5,14 @@ http://localhost:7076/swagger-ui/oauth2-redirect.html
 
 web origin uri
 http://localhost:7076
+
+#test key cloak token gen
+http://localhost:8080/realms/master/protocol/openid-connect/token
+post method
+
+www-form-encoded
+client_id
+client_secret
+grant_type password
+username
+password
