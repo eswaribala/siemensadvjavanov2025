@@ -1,0 +1,7 @@
+redirecturi
+http://localhost:7076/login/oauth2/code/*
+http://localhost:7076/*
+http://localhost:7076/swagger-ui/oauth2-redirect.html
+
+web origin uri
+http://localhost:7076
